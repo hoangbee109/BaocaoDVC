@@ -8,7 +8,6 @@ next();
 };
 }
 const express = require("express");
-const { Pool } = require("pg");
 const bodyParser = require("body-parser");
 const ExcelJS = require("exceljs");
 const app = express();
