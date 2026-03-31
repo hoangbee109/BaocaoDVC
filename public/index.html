@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Nhập báo cáo dịch vụ công</title>
+
+<style>
+
+.header-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0F7A5C;
+color:white;
+padding:12px 20px;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+.header-bar .left{
+display:flex;
+align-items:center;
+gap:15px;
+font-size:18px;
+font-weight:bold;
+}
+
+.header-bar .right{
+display:flex;
+gap:10px;
+}
+
+.header-bar button{
+background:#2ecc71;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.header-bar button:hover{
+background:#27ae60;
+}
+
+/* trạng thái inline */
+
+#trangthaiInline{
+background:#27ae60;
+color:white;
+font-weight:600;
+padding:4px 10px;
+border-radius:6px;
+font-size:14px;
+}
+
+body{
+background: linear-gradient(135deg,#0F7A5C,#1abc9c);
+}
+
+/* overlay */
+
+.modal-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+/* glass card */
+
+.modal-glass{
+width:340px;
+padding:25px;
+border-radius:16px;
+background: rgb(3, 97, 50);
+backdrop-filter: blur(15px);
+box-shadow:0 10px 40px rgba(0,0,0,0.3);
+box-shadow:0 0 20px rgba(46,204,113,0.4);
+color:white;
+animation:fadeIn 0.3s ease;
+}
+
+/* title */
+
+.modal-glass h3{
+text-align:center;
+margin-bottom:20px;
+}
+
+/* input */
+
+.input-group{
+position:relative;
+margin-bottom:15px;
+}
+
+.input-group input{
+width:70%;
+padding:10px 12px;
+border:none;
+border-radius:8px;
+background:rgba(255,255,255,0.2);
+color:white;
+outline:none;
+}
+
+.input-group input::placeholder{
+color:#ddd;
+}
+
+.input-group span{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+}
+
+/* buttons */
+
+.btn-group{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:15px;
+}
+
+.btn-main{
+background:linear-gradient(135deg,#2ecc71,#27ae60);
+padding:8px 18px;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+.btn-cancel{
+background:#7f8c8d;
+padding:8px 18px;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+/* animation */
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.9)}
+to{opacity:1;transform:scale(1)}
+}
+
+.modal-box{
+background:white;
+padding:25px;
+border-radius:12px;
+width:320px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+animation:fadeIn 0.3s ease;
+}
+
+.modal-box h3{
+margin-bottom:20px;
+text-align:center;
+}
+
+.input-group{
+position:relative;
+margin-bottom:15px;
+}
+
+.input-group input{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.input-group span{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+}
+
+.btn-group{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:10px;
+}
+
+.btn-primary{
+background:#2ecc71;
+padding:8px 16px;
+border-radius:6px;
+}
+
+.btn-secondary{
+background:#bdc3c7;
+padding:8px 16px;
+border-radius:6px;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.9)}
+to{opacity:1;transform:scale(1)}
+}
+
+#modalPass{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999 !important;
+}
+
+body{
+font-family:Arial;
+margin:0;
+background:#f5f5f5;
+padding:20px;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+display:flex;
+gap:10px;
+margin-bottom:10px;
+}
+
+button{
+padding:8px 14px;
+border:none;
+border-radius:6px;
+background:#2ecc71;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#27ae60;
+}
+
+/* ================= TABLE ================= */
+
+.table-container{
+max-height:650px;
+overflow:auto;
+border: 1px solid #ccc;
+overflow-x: scroll;
+}
+
+table{
+border-collapse:collapse;
+width:100%;
+background:whitesmoke;
+table-layout:fixed;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:6px;
+text-align:center;
+}
+
+/* ===== FIX HEADER 2 DÒNG ===== */
+
+thead tr:nth-child(1) th{
+position:sticky;
+top:0;
+background:#E0F7FA;
+z-index:10;
+height:40px;
+}
+
+thead tr:nth-child(2) th{
+position:sticky;
+top:52px;
+background:#E0F7FA;
+z-index:10;
+height:40px;
+}
+
+/* ===== FIX CỘT ===== */
+
+th:nth-child(1),
+td:nth-child(1){
+width:60px;
+position:sticky;
+left:0;
+background:#fff;
+z-index:6;
+}
+td{
+text-align:center;
+}
+th:nth-child(2),
+td:nth-child(2){
+width:350px;
+text-align:left;
+position:sticky;
+left:60px;
+background:#fff;
+z-index:6;
+}
+
+/* ===== INPUT ===== */
+
+input{
+width:100%;
+height:22px;
+box-sizing:border-box;
+border:1px solid #bbb;
+text-align:center;
+display: block;
+border-radius: 4px;
+margin: 0 auto;
+}
+
+input:focus{
+outline:2px solid #4CAF50;
+}
+
+thead th{
+height:48px;
+}
+/* ===== STYLE ===== */
+
+.error{
+background:#ffcccc;
+}
+
+.warning{
+background:#fff3cd;
+}
+
+.nhom{
+background:#ffe4e4;
+font-weight:bold;
+}
+
+.linhvuc{
+background:#e8f5e9;
+font-weight:bold;
+}
+
+/* zebra */
+
+tbody tr:nth-child(even):not(.nhom):not(.linhvuc){
+background:#fafafa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header-bar">
+
+<div class="left">
+<span id="tieude"></span>
+<span id="trangthaiInline"></span>
+</div>
+
+<div class="right">
+
+<button onclick="moDoiMatKhau()">Đổi mật khẩu</button>
+<button onclick="luuTam()" id="btnLuuTam">Lưu tạm thời</button>
+<button onclick="guiBaoCao()" id="btnGui">Gửi báo cáo</button>
+<button onclick="tiepTuc()" id="btnSua" style="display:none">Tiếp tục chỉnh sửa</button>
+<button onclick="logout()">Đăng xuất</button>
+
+</div>
+
+</div>
+
+<div class="table-container">
+
+<table id="bang">
+
+<thead>
+
+<tr>
+<th rowspan="2">STT</th>
+<th rowspan="2">Dịch vụ công</th>
+<th colspan="3">HỒ SƠ TIẾP NHẬN</th>
+<th colspan="3">ĐÃ GIẢI QUYẾT</th>
+<th colspan="2">ĐANG GIẢI QUYẾT</th>
+<th rowspan="2">HỒ SƠ QUÁ HẠN</th>
+<th rowspan="2">TRẢ KQ TRỰC TUYẾN</th>
+<th rowspan="2">THANH TOÁN TRỰC TUYẾN</th>
+<th colspan="4">SỐ HOÁ</th>
+</tr>
+
+<tr>
+<th>Trực tuyến</th>
+<th>Trực tiếp</th>
+<th>Tổng</th>
+
+<th>Trực tuyến</th>
+<th>Trực tiếp</th>
+<th>Tổng</th>
+
+<th>Trực tuyến</th>
+<th>Trực tiếp</th>
+
+<th>Đã số hoá</th>
+<th>Đã làm sạch</th>
+<th>Chưa làm sạch</th>
+<th>Tổng</th>
+</tr>
+
+</thead>
+
+<tbody></tbody>
+
+<tfoot>
+
+<tr id="tong">
+
+<td colspan="2"><b>TỔNG TOÀN ĐƠN VỊ</b></td>
+
+<td id="sum_tn_tt">0</td>
+<td id="sum_tn_tp">0</td>
+<td id="sum_tn">0</td>
+
+<td id="sum_gq_tt">0</td>
+<td id="sum_gq_tp">0</td>
+<td id="sum_gq">0</td>
+
+<td id="sum_dx_tt">0</td>
+<td id="sum_dx_tp">0</td>
+
+<td id="sum_quahan">0</td>
+<td id="sum_tructuyen">0</td>
+<td id="sum_thanhtoan">0</td>
+
+<td id="sum_sohoa">0</td>
+<td id="sum_lamsach">0</td>
+<td id="sum_chualamsach">0</td>
+<td id="sum_sohoa_total">0</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<div id="modalPass" class="modal-overlay" style="display:none">
+
+<div class="modal-glass">
+
+<h3>🔐 Đổi mật khẩu</h3>
+
+<div class="input-group">
+<input type="password" id="oldPassword" placeholder="Mật khẩu cũ">
+<span onclick="togglePass('oldPassword',this)">👁</span>
+</div>
+
+<div class="input-group">
+<input type="password" id="newPassword" placeholder="Mật khẩu mới">
+<span onclick="togglePass('newPassword',this)">👁</span>
+</div>
+
+<div class="btn-group">
+<button onclick="doiMatKhau()" class="btn-main">Xác nhận</button>
+<button onclick="dongModal()" class="btn-cancel">Huỷ</button>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+function togglePass(id,el){
+const input = document.getElementById(id);
+
+if(input.type==="password"){
+input.type="text";
+el.innerText="🙈";
+}else{
+input.type="password";
+el.innerText="👁";
+}
+}
+
+function moDoiMatKhau(){
+document.getElementById("modalPass").style.display="flex";
+}
+
+function dongModal(){
+document.getElementById("modalPass").style.display="none";
+}
+
+async function doiMatKhau(){
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+const oldPassEl = document.getElementById("oldPassword");
+const newPassEl = document.getElementById("newPassword");
+
+const oldPassword = oldPassEl.value.trim();
+const newPassword = newPassEl.value.trim();
+
+if(!oldPassword || !newPassword){
+alert("Vui lòng nhập đầy đủ thông tin");
+return;
+}
+
+const res = await fetch("/doi-mat-khau",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+xa_id:user.xa_id,
+oldPassword:oldPassword,
+newPassword:newPassword
+})
+});
+
+let data;
+
+try{
+data = await res.json();
+}catch(e){
+alert("Lỗi server");
+return;
+}
+
+if(data.success){
+alert("Đổi mật khẩu thành công");
+
+localStorage.removeItem("user");
+window.location="login.html";
+
+}else{
+alert("Sai mật khẩu cũ");
+}
+
+}
+
+const user = JSON.parse(localStorage.getItem("user"));
+if(!user || user.role!=="xa"){
+window.location="login.html";
+}
+
+function logout(){
+localStorage.removeItem("user");
+window.location="login.html";
+}
+
+let chitieu=[];
+
+/* load kỳ */
+
+async function loadKyBaoCao(){
+const res = await fetch("/ky-baocao");
+const ky = await res.json();
+window.thang_hientai = ky.thang;
+}
+
+/* load tên xã */
+
+async function loadTenXa(){
+const res = await fetch("/ten-xa/"+user.xa_id);
+const data = await res.json();
+document.getElementById("tieude").innerText =
+data.ten_xa + " - BÁO CÁO THÁNG " + window.thang_hientai;
+}
+
+/* load chỉ tiêu */
+
+async function loadChitieu(){
+
+const res = await fetch("/chitieu");
+chitieu = await res.json();
+
+const tbody=document.querySelector("#bang tbody");
+tbody.innerHTML="";
+
+chitieu.forEach(ct=>{
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+<td>${ct.stt}</td>
+<td>${ct.ten_chitieu}</td>
+
+<td><input class="tn_tt"></td>
+<td><input class="tn_tp"></td>
+<td class="tong_tn">0</td>
+
+<td><input class="gq_tt"></td>
+<td><input class="gq_tp"></td>
+<td class="tong_gq">0</td>
+
+<td><input class="dx_tt"></td>
+<td><input class="dx_tp"></td>
+
+<td><input class="ho_so_qua_han"></td>
+<td><input class="tra_kq_tructuyen"></td>
+<td><input class="thanhtoan"></td>
+
+<td><input class="sohoa"></td>
+<td><input class="lamsach"></td>
+<td><input class="chualamsach"></td>
+<td class="tong_sohoa">0</td>
+`;
+
+tbody.appendChild(row);
+
+/* disable dòng tiêu đề */
+
+if(ct.cap_dong==="nhom"){
+row.classList.add("nhom");
+row.querySelectorAll("input").forEach(i=>i.disabled=true);
+}
+
+if(ct.cap_dong==="linhvuc"){
+row.classList.add("linhvuc");
+row.querySelectorAll("input").forEach(i=>i.disabled=true);
+}
+
+/* event */
+
+row.querySelectorAll("input").forEach(input=>{
+input.addEventListener("input",()=>tinhTong(row));
+});
+
+});
+
+}
+
+/* tính */
+
+function tinhTong(row){
+
+const tn = (Number(row.querySelector(".tn_tt").value)||0) +
+(Number(row.querySelector(".tn_tp").value)||0);
+
+const gq = (Number(row.querySelector(".gq_tt").value)||0) +
+(Number(row.querySelector(".gq_tp").value)||0);
+
+const dx = (Number(row.querySelector(".dx_tt").value)||0) +
+(Number(row.querySelector(".dx_tp").value)||0);
+
+const sohoa = (Number(row.querySelector(".sohoa").value)||0) +
+(Number(row.querySelector(".lamsach").value)||0) +
+(Number(row.querySelector(".chualamsach").value)||0);
+
+row.querySelector(".tong_tn").innerText = tn;
+row.querySelector(".tong_gq").innerText = gq;
+row.querySelector(".tong_sohoa").innerText = sohoa;
+
+checkLogic(row);
+
+}
+
+/* logic */
+
+function checkLogic(row){
+
+const tn = Number(row.querySelector(".tong_tn").innerText)||0;
+const gq = Number(row.querySelector(".tong_gq").innerText)||0;
+const dx = (Number(row.querySelector(".dx_tt").value)||0) +
+(Number(row.querySelector(".dx_tp").value)||0);
+const tt = Number(row.querySelector(".thanhtoan").value)||0;
+
+row.querySelector(".tong_tn").classList.remove("error");
+row.querySelector(".thanhtoan").classList.remove("warning");
+
+if(tn !== (gq+dx)){
+row.querySelector(".tong_tn").classList.add("error");
+}
+
+if(tt > tn){
+row.querySelector(".thanhtoan").classList.add("warning");
+}
+
+}
+
+/* load data */
+
+async function loadDuLieu(){
+
+const res=await fetch(`/dulieu-xa?xa_id=${user.xa_id}&thang=${window.thang_hientai}`);
+const data=await res.json();
+
+const rows=document.querySelectorAll("#bang tbody tr");
+
+data.forEach(d=>{
+rows.forEach((row,i)=>{
+if(chitieu[i].id==d.chitieu_id){
+
+row.querySelector(".tn_tt").value=d.tiepnhan_tructuyen||"";
+row.querySelector(".tn_tp").value=d.tiepnhan_tructiep||"";
+
+row.querySelector(".gq_tt").value=d.giaiquyet_tructuyen||"";
+row.querySelector(".gq_tp").value=d.giaiquyet_tructiep||"";
+
+row.querySelector(".dx_tt").value=d.dangxuly_tructuyen||"";
+row.querySelector(".dx_tp").value=d.dangxuly_tructiep||"";
+
+row.querySelector(".ho_so_qua_han").value = d.ho_so_qua_han || "";
+row.querySelector(".tra_kq_tructuyen").value = d.tra_kq_tructuyen || "";
+row.querySelector(".thanhtoan").value=d.thanhtoan_tructuyen||"";
+
+row.querySelector(".sohoa").value=d.sohoa||"";
+row.querySelector(".lamsach").value=d.lam_sach||"";
+row.querySelector(".chualamsach").value=d.chua_lam_sach||"";
+
+tinhTong(row);
+tinhTongBang();
+}
+});
+});
+
+}
+
+/* save */
+
+async function luu(){
+const rows=document.querySelectorAll("#bang tbody tr");
+const data=[];
+rows.forEach((row,i)=>{
+data.push({
+thang:window.thang_hientai,
+xa_id:user.xa_id,
+chitieu_id:chitieu[i].id,
+
+tiepnhan_tructuyen:row.querySelector(".tn_tt").value,
+tiepnhan_tructiep:row.querySelector(".tn_tp").value,
+
+giaiquyet_tructuyen:row.querySelector(".gq_tt").value,
+giaiquyet_tructiep:row.querySelector(".gq_tp").value,
+
+dangxuly_tructuyen:row.querySelector(".dx_tt").value,
+dangxuly_tructiep:row.querySelector(".dx_tp").value,
+
+ho_so_qua_han: row.querySelector(".ho_so_qua_han").value,
+tra_kq_tructuyen: row.querySelector(".tra_kq_tructuyen").value,
+thanhtoan_tructuyen:row.querySelector(".thanhtoan").value,
+
+sohoa:row.querySelector(".sohoa").value,
+lam_sach:row.querySelector(".lamsach").value,
+chua_lam_sach:row.querySelector(".chualamsach").value
+});
+});
+
+await fetch("/gui-baocao",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"role": user.role
+},
+});
+
+await fetch("/luu",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"role": user.role   // 👈 THÊM DÒNG NÀY
+},
+body:JSON.stringify(data)
+});
+
+/*alert("Đã lưu");*/
+
+}
+
+async function luuTam(){
+await luu();
+alert("Đã lưu tạm");
+}
+
+async function guiBaoCao(){
+if(!confirm("Bạn có chắc chắn muốn gửi báo cáo?")){
+return;
+}
+await luu();
+const res = await fetch("/ky-baocao");
+const ky = await res.json();
+await fetch("/gui-baocao",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"role": user.role
+},
+body:JSON.stringify({
+xa_id:user.xa_id,
+thang:ky.thang
+})
+});
+alert("Đã gửi báo cáo");
+lockForm();
+}
+
+function lockForm(){
+document.querySelectorAll("input").forEach(i=>i.disabled=true);
+document.getElementById("btnGui").style.display="none";
+document.getElementById("btnSua").style.display="none";
+document.getElementById("btnLuuTam").style.display="none";
+}
+
+function tiepTuc(){
+document.querySelectorAll("input").forEach(i=>i.disabled=false);
+}
+
+/* init */
+
+async function init(){
+await loadKyBaoCao();
+await loadTenXa();
+await loadChitieu();
+await loadDuLieu();
+await checkTrangThai();
+}
+init();
+
+async function checkTrangThai(){
+
+const res = await fetch("/ky-baocao");
+const ky = await res.json();
+
+const res2 = await fetch(
+`/trangthai-baocao?xa_id=${user.xa_id}&thang=${ky.thang}`
+);
+
+const data = await res2.json();
+
+const box = document.getElementById("trangthaiInline");
+
+if(data.trang_thai==="submit"){
+
+box.innerHTML = "✅ Đã gửi";
+box.style.background = "#d4edda";
+box.style.color = "#155724";
+
+lockForm();
+
+}else{
+
+box.innerHTML = "⚠️ Chưa gửi";
+box.style.background = "#fff3cd";
+box.style.color = "#856404";
+
+}
+
+}
+
+/* enter */
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Enter"){
+const inputs=[...document.querySelectorAll("input")];
+const i=inputs.indexOf(document.activeElement);
+if(i>-1 && i<inputs.length-1){
+inputs[i+1].focus();
+e.preventDefault();
+}
+}
+});
+
+function tinhTongBang(){
+let sum_tn_tt=0;
+let sum_tn_tp=0;
+let sum_gq_tt=0;
+let sum_gq_tp=0;
+let sum_dx_tt=0;
+let sum_dx_tp=0;
+let sum_quahan = 0;
+let sum_tructuyen = 0;
+let sum_thanhtoan=0;
+let sum_sohoa=0;
+let sum_lamsach=0;
+let sum_chualamsach=0;
+document.querySelectorAll("#bang tbody tr").forEach(row=>{
+
+sum_tn_tt += Number(row.querySelector(".tn_tt")?.value)||0;
+sum_tn_tp += Number(row.querySelector(".tn_tp")?.value)||0;
+
+sum_gq_tt += Number(row.querySelector(".gq_tt")?.value)||0;
+sum_gq_tp += Number(row.querySelector(".gq_tp")?.value)||0;
+
+sum_dx_tt += Number(row.querySelector(".dx_tt")?.value)||0;
+sum_dx_tp += Number(row.querySelector(".dx_tp")?.value)||0;
+
+sum_quahan += Number(row.querySelector(".ho_so_qua_han")?.value)||0;
+sum_tructuyen += Number(row.querySelector(".tra_kq_tructuyen")?.value)||0;
+sum_thanhtoan += Number(row.querySelector(".thanhtoan")?.value)||0;
+
+sum_sohoa += Number(row.querySelector(".sohoa")?.value)||0;
+sum_lamsach += Number(row.querySelector(".lamsach")?.value)||0;
+sum_chualamsach += Number(row.querySelector(".chualamsach")?.value)||0;
+
+});
+
+document.getElementById("sum_tn_tt").innerText=sum_tn_tt;
+document.getElementById("sum_tn_tp").innerText=sum_tn_tp;
+document.getElementById("sum_tn").innerText=sum_tn_tt+sum_tn_tp;
+
+document.getElementById("sum_gq_tt").innerText=sum_gq_tt;
+document.getElementById("sum_gq_tp").innerText=sum_gq_tp;
+document.getElementById("sum_gq").innerText=sum_gq_tt+sum_gq_tp;
+
+document.getElementById("sum_dx_tt").innerText=sum_dx_tt;
+document.getElementById("sum_dx_tp").innerText=sum_dx_tp;
+
+document.getElementById("sum_quahan").innerText = sum_quahan;
+document.getElementById("sum_tructuyen").innerText = sum_tructuyen;
+document.getElementById("sum_thanhtoan").innerText=sum_thanhtoan;
+
+document.getElementById("sum_sohoa").innerText=sum_sohoa;
+document.getElementById("sum_lamsach").innerText=sum_lamsach;
+document.getElementById("sum_chualamsach").innerText=sum_chualamsach;
+
+document.getElementById("sum_sohoa_total").innerText=
+sum_sohoa+sum_lamsach+sum_chualamsach;
+
+}
+
+
+/* auto select */
+
+document.addEventListener("focusin",e=>{
+if(e.target.tagName==="INPUT") e.target.select();
+});
+
+function showToast(msg){
+
+const div = document.createElement("div");
+
+div.innerText = msg;
+
+div.style.position="fixed";
+div.style.bottom="20px";
+div.style.left="50%";
+div.style.transform="translateX(-50%)";
+div.style.background="#2ecc71";
+div.style.color="white";
+div.style.padding="10px 20px";
+div.style.borderRadius="8px";
+div.style.zIndex="9999";
+
+document.body.appendChild(div);
+
+setTimeout(()=>div.remove(),2000);
+
+}
+
+</script>
+
+</body>
+</html>
