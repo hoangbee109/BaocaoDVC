@@ -1,0 +1,4 @@
+ #tblPhanQuyen tbody td:nth-child(2) {
+      text-align: left;
+      padding-left: 12px;
+    }

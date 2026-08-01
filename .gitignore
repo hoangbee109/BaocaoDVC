@@ -1,1 +1,26 @@
+# Environment
 .env
+
+# Node
+node_modules/
+npm-debug.log
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Uploads
+uploads/
+
+# Backup
+backup/
+backup_*.sql
+local_release_v1.sql
+
+# OS
+.DS_Store
+Thumbs.db
+
+.claude/

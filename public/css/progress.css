@@ -1,0 +1,192 @@
+/* =====================================================
+   MODULE: PROGRESS
+   Mô tả: Giao diện theo dõi tiến độ báo cáo
+   Phụ trách:
+   - Thanh tìm kiếm
+   - Bộ lọc trạng thái
+   - Bảng tiến độ
+   - Badge trạng thái
+   - Nút thao tác
+===================================================== */
+
+.progress {
+    height: 18px;
+    background: #eee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#tableProgress {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tableProgress th:nth-child(1),
+#tableProgress td:nth-child(1) {
+    width: 6%;
+}
+
+#tableProgress th:nth-child(2),
+#tableProgress td:nth-child(2) {
+    width: 25%;
+}
+
+#tableProgress th:nth-child(3),
+#tableProgress td:nth-child(3) {
+    width: 23%;
+}
+
+#tableProgress th:nth-child(4),
+#tableProgress td:nth-child(4) {
+    width: 23%;
+}
+
+#tableProgress th:nth-child(5),
+#tableProgress td:nth-child(5) {
+    width: 23%;
+}
+
+.progress-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 18px 0;
+}
+
+.progress-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.progress-right {
+    display: flex;
+    gap: 10px;
+}
+
+.progress-left input {
+    width: 300px;
+    height: 40px;
+    padding: 0 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all .2s ease;
+    box-sizing: border-box;
+}
+
+.progress-left input:hover {
+    border-color: #2ecc71;
+}
+
+.progress-left input:focus {
+    outline: none;
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, .18);
+}
+
+.progress-left select {
+    width: 150px;
+    height: 40px;
+    padding: 0 38px 0 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.progress-left select:hover {
+    border-color: #2ecc71;
+}
+
+.progress-left select:focus {
+    outline: none;
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, .18);
+}
+
+#progressCount {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    white-space: nowrap;
+}
+
+#tableProgress th {
+    text-align: center;
+}
+
+#tableProgress td {
+    vertical-align: middle;
+}
+
+#tableProgress td:nth-child(1) {
+    text-align: center;
+}
+
+#tableProgress td:nth-child(3) {
+    text-align: center;
+}
+
+#tableProgress td:nth-child(4) {
+    text-align: center;
+}
+
+#tableProgress td:nth-child(5) {
+    text-align: center;
+}
+
+.action-group {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-excel {
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    margin-left: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-excel:hover {
+    background: #1976D2;
+}
+
+.btn-excel-disable {
+    background: #cfcfcf;
+    color: #666;
+    border: none;
+    padding: 6px 12px;
+    margin-left: 6px;
+    border-radius: 5px;
+    cursor: not-allowed;
+}
+
+.btn-copy,
+.btn-export {
+    height: 40px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-copy:hover,
+.btn-export:hover {
+    transform: translateY(-1px);
+}

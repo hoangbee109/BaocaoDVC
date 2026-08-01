@@ -1,0 +1,35 @@
+
+services:
+  db:
+    image: postgres:15
+    container_name: baocao-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Phapche12345
+      POSTGRES_DB: baocao
+    networks:
+      - web
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./uploads:/app/uploads
+
+  backend:
+    build: .
+    container_name: baocao-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://postgres:Phapche12345@db:5432/baocao
+    depends_on:
+      - db
+    networks:
+      - web
+
+volumes:
+  db_data:
+networks:
+  web:
+    external: true
